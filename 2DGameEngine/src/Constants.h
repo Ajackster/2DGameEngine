@@ -16,6 +16,10 @@ enum LayerType {
     UI_LAYER = 5,
 };
 
+enum MapLayer {
+    
+};
+
 const unsigned int NUM_LAYERS = 6;
 
 #endif

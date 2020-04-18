@@ -65,19 +65,15 @@ void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
     assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
+    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
     
-    map = new Map("jungle-tiletexture", 2, 32, 32);
+    map = new Map("desert-tiletexture", 1, 64, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
     
     // Start including entities
-    playerEntity.AddComponent<Transform>(240, 160, 0, 0, 32, 32, 1);
+    playerEntity.AddComponent<Transform>(240, 160, 32, 32, 1);
     playerEntity.AddComponent<Sprite>("chopper-image", 2, 90, true, false);
     playerEntity.AddComponent<KeyboardControl>();
-
-    Entity& tankEntity(entityManager.AddEntity("tank", LayerType::ENEMY_LAYER));
-    tankEntity.AddComponent<Transform>(0, 0, 20, 20, 32, 32, 1);
-    tankEntity.AddComponent<Sprite>("tank-image");
 }
 
 void Game::ProcessInput() {
@@ -144,8 +140,8 @@ void Game::Render() {
 void Game::HandleCameraMovement() {
     Transform* playerTransform = playerEntity.GetComponent<Transform>();
 
-    camera.x = playerTransform->position.x - (camera.w / 2);
-    camera.y = playerTransform->position.y - (camera.h / 2);
+    camera.x = playerTransform->GetPosition().x - (camera.w / 2);
+    camera.y = playerTransform->GetPosition().y - (camera.h / 2);
 }
 
 void Game::Destroy() {

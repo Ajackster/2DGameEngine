@@ -6,15 +6,13 @@ void KeyboardControl::Initialize() {
 }
 
 void KeyboardControl::Update(float deltaTime) {
+    glm::vec2 newPosition = transform->GetPosition();
     if (Game::inputManager->IsPressed("Up")) {
         if (sprite->IsPlayingAnimation("UpAnimation") == false) {
             sprite->Play("UpAnimation");
         }
 
-        transform->velocity.y = -200;
-    }
-    else {
-        transform->velocity.y = 0;
+        newPosition.y += -200 * deltaTime;
     }
 
     if (Game::inputManager->IsPressed("Right")) {
@@ -22,10 +20,7 @@ void KeyboardControl::Update(float deltaTime) {
             sprite->Play("RightAnimation");
         }
 
-        transform->velocity.x = 200;
-    }
-    else {
-        transform->velocity.x = 0;
+        newPosition.x += 200 * deltaTime;
     }
 
     if (Game::inputManager->IsPressed("Down")) {
@@ -33,10 +28,7 @@ void KeyboardControl::Update(float deltaTime) {
             sprite->Play("DownAnimation");
         }
 
-        transform->velocity.y = 200;
-    }
-    else if (Game::inputManager->IsPressed("Up") == false) {
-        transform->velocity.y = 0;
+        newPosition.y += 200 * deltaTime;
     }
 
     if (Game::inputManager->IsPressed("Left")) {
@@ -44,9 +36,8 @@ void KeyboardControl::Update(float deltaTime) {
             sprite->Play("LeftAnimation");
         }
 
-        transform->velocity.x = -200;
+        newPosition.x += -200 * deltaTime;
     }
-    else if (Game::inputManager->IsPressed("Right") == false) {
-        transform->velocity.x = 0;
-    }
+
+    transform->UpdatePosition(newPosition);
 }

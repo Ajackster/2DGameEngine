@@ -27,8 +27,8 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
             mapFile.get(ch);
             int sourceRectX = atoi(&ch) * tileWidth;
 
-            glm::vec2 cartesianCoord = glm::vec2(x * (scale * tileWidth), y * (scale * tileHeight));
-            AddTile(sourceRectX, sourceRectY, cartesianCoord.x, cartesianCoord.y);
+            glm::vec2 isometricCoord = glm::vec2((x - y) * ((tileWidth * scale) / 2), (x + y) * ((tileHeight * scale) / 2));
+            AddTile(sourceRectX, sourceRectY, isometricCoord.x, isometricCoord.y);
             mapFile.ignore();
         }
     }

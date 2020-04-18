@@ -8,15 +8,18 @@
 
 class Transform : public Component {
 public:
-    glm::vec2 position;
-    glm::vec2 velocity;
+    glm::vec2 GetPosition() const { return position; };
+    void UpdatePosition(glm::vec2 newPosition);
     int width;
     int height;
     int scale;
-    Transform(int posX, int posY, int velX, int velY, int w, int h, int s);
+    Transform(int posX, int posY, int w, int h, int s);
     void Initialize() override;
     void Update(float deltaTime) override;
     void Render() override;
+
+private:
+    glm::vec2 position;
 };
 
 #endif
