@@ -1,7 +1,8 @@
 #include "Tile.h"
+#include "../Utils/IsometricCartesian.h"
 #include "../Game.h"
 
-Tile::Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId) {
+Tile::Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, bool isColliderTile) {
     texture = Game::assetManager->GetTexture(textureId);
 
     sourceRect.x = sourceRectX;
@@ -16,6 +17,7 @@ Tile::Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int ti
 
     position.x = x;
     position.y = y;
+    isCollider = isColliderTile;
 }
 
 Tile::~Tile() {
@@ -23,8 +25,9 @@ Tile::~Tile() {
 }
 
 void Tile::Update(float deltaTime) {
-    destinationRect.x = position.x - Game::camera.x;
-    destinationRect.y = position.y - Game::camera.y;
+    glm::vec2 isometricCoord = utils::CartesianToIsometric(position, destinationRect);
+    destinationRect.x = isometricCoord.x - Game::camera.x;
+    destinationRect.y = isometricCoord.y - Game::camera.y;
 }
 
 void Tile::Render() {

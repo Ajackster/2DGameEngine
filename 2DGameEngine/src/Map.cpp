@@ -1,5 +1,4 @@
 #include <fstream>
-#include "./Utils/IsometricCartesian.h";
 #include "./Game.h"
 #include "./Map.h"
 #include "./EntityManager.h"
@@ -27,8 +26,7 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
             mapFile.get(ch);
             int sourceRectX = atoi(&ch) * tileWidth;
 
-            glm::vec2 isometricCoord = glm::vec2((x - y) * ((tileWidth * scale) / 2), (x + y) * ((tileHeight * scale) / 2));
-            AddTile(sourceRectX, sourceRectY, isometricCoord.x, isometricCoord.y);
+            AddTile(sourceRectX, sourceRectY, x, y);
             mapFile.ignore();
         }
     }
@@ -39,7 +37,7 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
 void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y) {
     // TODO: Add a new tile entity in the game scene
     Entity& newTile(entityManager.AddEntity("Tile " + std::to_string(tileEntityIndex), LayerType::TILEMAP_LAYER));
-    newTile.AddComponent<Tile>(sourceRectX, sourceRectY, x, y, tileWidth, tileHeight, scale, textureId);
+    newTile.AddComponent<Tile>(sourceRectX, sourceRectY, x, y, tileWidth, tileHeight, scale, textureId, false);
 
     tileEntityIndex++;
 }

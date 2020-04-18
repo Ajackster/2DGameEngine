@@ -67,7 +67,7 @@ void Game::LoadLevel(int levelNumber) {
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
     assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
     
-    map = new Map("desert-tiletexture", 1, 64, 32);
+    map = new Map("desert-tiletexture", 2, 64, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
     
     // Start including entities

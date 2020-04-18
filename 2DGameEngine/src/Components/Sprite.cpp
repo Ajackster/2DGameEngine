@@ -7,17 +7,17 @@ Sprite::Sprite(std::string id) {
     SetTexture(id);
 }
 
-Sprite::Sprite(std::string id, int numFrames, int animationSpeed, bool hasDirections, bool isFixed) {
+Sprite::Sprite(std::string id, int numFrames, int animationDurationMS, bool hasDirections, bool isFixed) {
     isAnimated = true;
     this->numFrames = numFrames;
-    this->animationSpeed = animationSpeed;
+    this->animationDurationMS = animationDurationMS;
     this->isFixed = isFixed;
 
     if (hasDirections) {
-        Animation downAnimation = Animation(0, numFrames, animationSpeed);
-        Animation rightAnimation = Animation(1, numFrames, animationSpeed);
-        Animation leftAnimation = Animation(2, numFrames, animationSpeed);
-        Animation upAnimation = Animation(3, numFrames, animationSpeed);
+        Animation downAnimation = Animation(0, numFrames, animationDurationMS);
+        Animation rightAnimation = Animation(1, numFrames, animationDurationMS);
+        Animation leftAnimation = Animation(2, numFrames, animationDurationMS);
+        Animation upAnimation = Animation(3, numFrames, animationDurationMS);
 
         animations.emplace("DownAnimation", downAnimation);
         animations.emplace("RightAnimation", rightAnimation);
@@ -28,7 +28,7 @@ Sprite::Sprite(std::string id, int numFrames, int animationSpeed, bool hasDirect
         this->currentAnimationName = "DownAnimation";
     }
     else {
-        Animation singleAnimation = Animation(0, numFrames, animationSpeed);
+        Animation singleAnimation = Animation(0, numFrames, animationDurationMS);
         animations.emplace("SingleAnimation", singleAnimation);
         this->animationIndex = 0;
         this->currentAnimationName = "SingleAnimation";
@@ -45,7 +45,7 @@ bool Sprite::IsPlayingAnimation(std::string animationName) const {
 void Sprite::Play(std::string animationName) {
     numFrames = animations[animationName].numFrames;
     animationIndex = animations[animationName].index;
-    animationSpeed = animations[animationName].animationSpeed;
+    animationDurationMS = animations[animationName].animationDurationMS;
     currentAnimationName = animationName;
 }
 
@@ -63,7 +63,7 @@ void Sprite::Initialize() {
 
 void Sprite::Update(float deltaTime) {
     if (isAnimated) {
-        sourceRectangle.x = sourceRectangle.w * static_cast<int>((SDL_GetTicks() / animationSpeed) % numFrames);
+        sourceRectangle.x = sourceRectangle.w * static_cast<int>((SDL_GetTicks() / animationDurationMS) % numFrames);
     }
     sourceRectangle.y = animationIndex * transform->height;
 

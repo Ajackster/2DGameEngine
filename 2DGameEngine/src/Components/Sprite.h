@@ -11,7 +11,7 @@ class Sprite: public Component {
     public:
         SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
         Sprite(std::string id);
-        Sprite(std::string id, int numFrames, int animationSpeed, bool hasDirections, bool isFixed);
+        Sprite(std::string id, int numFrames, int animationDurationMS, bool hasDirections, bool isFixed);
         bool IsPlayingAnimation(std::string animationName) const;
         void Play(std::string animationName);
         void SetTexture(std::string textureId);
@@ -26,7 +26,7 @@ class Sprite: public Component {
         SDL_Rect destinationRectangle;
         bool isAnimated;
         int numFrames;
-        int animationSpeed;
+        int animationDurationMS;
         bool isFixed;
         std::map<std::string, Animation> animations;
         std::string currentAnimationName;

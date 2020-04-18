@@ -4,8 +4,8 @@ Animation::Animation() {
     
 }
 
-Animation::Animation(unsigned int index, unsigned int numFrames, unsigned int animationSpeed) {
+Animation::Animation(unsigned int index, unsigned int numFrames, unsigned int animationDurationMS) {
     this->index = index;
     this->numFrames = numFrames;
-    this->animationSpeed = animationSpeed;
+    this->animationDurationMS = animationDurationMS;
 }
