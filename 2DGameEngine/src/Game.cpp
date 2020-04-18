@@ -1,7 +1,6 @@
 #include <iostream>
 #include "./Constants.h"
 #include "./Game.h"
-#include "./AssetManager.h"
 #include "./Map.h"
 #include "../lib/glm/glm.hpp"
 
@@ -11,6 +10,7 @@
 
 EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
+InputManager* Game::inputManager = new InputManager();
 SDL_Renderer* Game::renderer;
 SDL_Event Game::event;
 SDL_Rect Game::camera = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
@@ -73,7 +73,7 @@ void Game::LoadLevel(int levelNumber) {
     // Start including entities
     playerEntity.AddComponent<Transform>(240, 160, 0, 0, 32, 32, 1);
     playerEntity.AddComponent<Sprite>("chopper-image", 2, 90, true, false);
-    playerEntity.AddComponent<KeyboardControl>("up", "right", "down", "left", "space");
+    playerEntity.AddComponent<KeyboardControl>();
 
     Entity& tankEntity(entityManager.AddEntity("tank", LayerType::ENEMY_LAYER));
     tankEntity.AddComponent<Transform>(0, 0, 20, 20, 32, 32, 1);
@@ -105,6 +105,8 @@ void Game::ProcessInput() {
 }
 
 void Game::Update() {
+    inputManager->UpdateInput();
+
     // Wait until target frame miliseconds has elapsed since the last frame.
     int timeToWait = FRAME_TARGET_TIME - (SDL_GetTicks() - ticksLastFrame);
 

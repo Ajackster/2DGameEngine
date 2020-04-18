@@ -21,9 +21,14 @@
   <ItemGroup>
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\AssetManager.cpp" />
+    <ClCompile Include="src\Components\KeyboardControl.cpp" />
+    <ClCompile Include="src\Components\Sprite.cpp" />
+    <ClCompile Include="src\Components\Tile.cpp" />
+    <ClCompile Include="src\Components\Transform.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
@@ -40,6 +45,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\Utils\IsometricCartesian.h" />
