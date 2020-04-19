@@ -1,7 +1,7 @@
-#include "InputManager.h"
+#include "InputState.h"
 #include "Game.h"
 
-InputManager::InputManager() {
+InputState::InputState() {
     this->upKeyCode = GetSDLKeyCodeForInputId("Up");
     this->rightKeyCode = GetSDLKeyCodeForInputId("Right");
     this->downKeyCode = GetSDLKeyCodeForInputId("Down");
@@ -9,7 +9,7 @@ InputManager::InputManager() {
     this->fireKeyCode = GetSDLKeyCodeForInputId("Fire");
 }
 
-void InputManager::UpdateInput() {
+void InputState::UpdateInput() {
     if (Game::event.type == SDL_KEYDOWN) {
         int keyCode = Game::event.key.keysym.sym;
 
@@ -58,11 +58,11 @@ void InputManager::UpdateInput() {
     }
 }
 
-bool InputManager::IsPressed(std::string inputId) const {
+bool InputState::IsPressed(std::string inputId) const {
     return inputIdToIsPressed.at(inputId);
 }
 
-SDL_KeyCode InputManager::GetSDLKeyCodeForInputId(std::string inputId) const {
+SDL_KeyCode InputState::GetSDLKeyCodeForInputId(std::string inputId) const {
     if (inputId.compare("Up") == 0) return SDLK_w;
     if (inputId.compare("Right") == 0) return SDLK_d;
     if (inputId.compare("Down") == 0) return SDLK_s;

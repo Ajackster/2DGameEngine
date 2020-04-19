@@ -7,7 +7,7 @@
 #include "./Component.h"
 #include "./EntityManager.h"
 #include "./AssetManager.h"
-#include "./InputManager.h"
+#include "./InputState.h"
 
 class AssetManager;
 
@@ -17,7 +17,7 @@ public:
     ~Game();
     static SDL_Renderer* renderer;
     static AssetManager* assetManager;
-    static InputManager* inputManager;
+    static InputState* inputState;
     static SDL_Event event;
     static SDL_Rect camera;
 

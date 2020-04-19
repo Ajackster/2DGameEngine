@@ -1,10 +1,11 @@
 #include "Transform.h"
+#include "../Utils.h"
 
-Transform::Transform(int posX, int posY, int w, int h, int s) {
+Transform::Transform(int posX, int posY, int width, int height, int scale) {
     position = glm::vec2(posX, posY);
-    width = w;
-    height = h;
-    scale = s;
+    this->width = width;
+    this->height = height;
+    this->scale = scale;
 }
 
 void Transform::UpdatePosition(glm::vec2 newPosition) {

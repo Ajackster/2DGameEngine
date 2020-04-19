@@ -7,37 +7,37 @@ void KeyboardControl::Initialize() {
 
 void KeyboardControl::Update(float deltaTime) {
     glm::vec2 newPosition = transform->GetPosition();
-    if (Game::inputManager->IsPressed("Up")) {
-        if (sprite->IsPlayingAnimation("UpAnimation") == false) {
-            sprite->Play("UpAnimation");
-        }
+    int dX = 0;
+    int dY = 0;
 
-        newPosition.y += -200 * deltaTime;
+    if (Game::inputState->IsPressed("Up")) {
+        dY = -1;
     }
 
-    if (Game::inputManager->IsPressed("Right")) {
-        if (sprite->IsPlayingAnimation("RightAnimation") == false) {
-            sprite->Play("RightAnimation");
-        }
-
-        newPosition.x += 200 * deltaTime;
+    if (Game::inputState->IsPressed("Right")) {
+        dX = 1;
     }
 
-    if (Game::inputManager->IsPressed("Down")) {
-        if (sprite->IsPlayingAnimation("DownAnimation") == false) {
-            sprite->Play("DownAnimation");
+    if (Game::inputState->IsPressed("Down")) {
+        if (dY != 0) {
+            dY = 0;
         }
-
-        newPosition.y += 200 * deltaTime;
+        else {
+            dY = 1;
+        }
     }
 
-    if (Game::inputManager->IsPressed("Left")) {
-        if (sprite->IsPlayingAnimation("LeftAnimation") == false) {
-            sprite->Play("LeftAnimation");
+    if (Game::inputState->IsPressed("Left")) {
+        if (dX != 0) {
+            dX = 0;
         }
-
-        newPosition.x += -200 * deltaTime;
+        else {
+            dX = -1;
+        }
     }
+
+    newPosition.x += dX * 50 * deltaTime;
+    newPosition.y += dY * 50 * deltaTime;
 
     transform->UpdatePosition(newPosition);
 }

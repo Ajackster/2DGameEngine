@@ -3,6 +3,7 @@
 #include "./Game.h"
 #include "./Map.h"
 #include "../lib/glm/glm.hpp"
+#include "Utils.h"
 
 #include "./Components/Transform.h"
 #include "./Components/Sprite.h"
@@ -10,7 +11,7 @@
 
 EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
-InputManager* Game::inputManager = new InputManager();
+InputState* Game::inputState = new InputState();
 SDL_Renderer* Game::renderer;
 SDL_Event Game::event;
 SDL_Rect Game::camera = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
@@ -65,9 +66,9 @@ void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
     assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
+    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
     
-    map = new Map("desert-tiletexture", 2, 64, 32);
+    map = new Map("desert-tiletexture", 1, 32, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
     
     // Start including entities
@@ -101,7 +102,7 @@ void Game::ProcessInput() {
 }
 
 void Game::Update() {
-    inputManager->UpdateInput();
+    inputState->UpdateInput();
 
     // Wait until target frame miliseconds has elapsed since the last frame.
     int timeToWait = FRAME_TARGET_TIME - (SDL_GetTicks() - ticksLastFrame);

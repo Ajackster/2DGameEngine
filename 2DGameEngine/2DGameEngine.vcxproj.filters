@@ -16,9 +16,6 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{95f90537-c5b1-4728-8a5f-8cd13126ad6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{dacb24dd-a2e5-460c-ad37-c7b768ad2abe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{85841c9b-36e1-4178-87f6-90570575944a}</UniqueIdentifier>
     </Filter>
@@ -60,17 +57,17 @@
     <ClCompile Include="src\Components\Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\InputManager.cpp">
+    <ClCompile Include="src\MapLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MapLayer.cpp">
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Utils\IsometricCartesian.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -110,10 +107,13 @@
     <ClInclude Include="src\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\InputManager.h">
+    <ClInclude Include="src\MapLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MapLayer.h">
+    <ClInclude Include="src\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

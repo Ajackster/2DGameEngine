@@ -2,6 +2,7 @@
 #include "./Game.h"
 #include "./Map.h"
 #include "./EntityManager.h"
+#include "./Utils.h"
 #include "./Components/Tile.h"
 
 extern EntityManager entityManager;
@@ -26,7 +27,7 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
             mapFile.get(ch);
             int sourceRectX = atoi(&ch) * tileWidth;
 
-            AddTile(sourceRectX, sourceRectY, x, y);
+            AddTile(sourceRectX, sourceRectY, x * scale * tileWidth, y * scale * tileHeight);
             mapFile.ignore();
         }
     }

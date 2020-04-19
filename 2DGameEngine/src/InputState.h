@@ -1,11 +1,11 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef INPUTSTATE_H
+#define INPUTSTATE_H
 
 #include <string>
 #include <map>
 #include <SDL.h>
 
-class InputManager {
+class InputState {
 public:
     SDL_KeyCode upKeyCode;
     SDL_KeyCode downKeyCode;
@@ -13,7 +13,7 @@ public:
     SDL_KeyCode leftKeyCode;
     SDL_KeyCode fireKeyCode;
 
-    InputManager();
+    InputState();
     void UpdateInput();
     bool IsPressed(std::string inputId) const;
 
@@ -28,4 +28,4 @@ private:
     };
 };
 
-#endif INPUT_H
+#endif INPUTSTATE_H

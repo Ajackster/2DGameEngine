@@ -28,11 +28,12 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\InputState.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\MapLayer.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation.h" />
@@ -46,11 +47,11 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\InputState.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapLayer.h" />
     <ClInclude Include="src\TextureManager.h" />
-    <ClInclude Include="src\Utils\IsometricCartesian.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

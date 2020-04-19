@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "../Utils.h"
 
 SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 Sprite::Sprite(std::string id) {
@@ -64,8 +65,11 @@ void Sprite::Initialize() {
 void Sprite::Update(float deltaTime) {
     if (isAnimated) {
         sourceRectangle.x = sourceRectangle.w * static_cast<int>((SDL_GetTicks() / animationDurationMS) % numFrames);
+        sourceRectangle.y = animationIndex * transform->height;
     }
-    sourceRectangle.y = animationIndex * transform->height;
+
+    destinationRectangle.w = transform->width * transform->scale;
+    destinationRectangle.h = transform->height * transform->scale;
 
     if (isFixed) {
         destinationRectangle.x = static_cast<int>(transform->GetPosition().x);
@@ -75,9 +79,6 @@ void Sprite::Update(float deltaTime) {
         destinationRectangle.x = static_cast<int>(transform->GetPosition().x) - Game::camera.x;
         destinationRectangle.y = static_cast<int>(transform->GetPosition().y) - Game::camera.y;
     }
-
-    destinationRectangle.w = transform->width * transform->scale;
-    destinationRectangle.h = transform->height * transform->scale;
 }
 
 void Sprite::Render() {
