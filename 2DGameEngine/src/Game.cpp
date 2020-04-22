@@ -69,7 +69,7 @@ void Game::LoadLevel(int levelNumber) {
     assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
     
     map = new Map("desert-tiletexture", 1, 32, 32);
-    map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
+    map->LoadMap("./assets/tilemaps/jungle.map", "./assets/tilemaps/jungle-collision.map", 25, 20);
     
     // Start including entities
     playerEntity.AddComponent<Transform>(240, 160, 32, 32, 1);

@@ -2,22 +2,22 @@
 #include "../Utils.h"
 #include "../Game.h"
 
-Tile::Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, bool isColliderTile) {
-    texture = Game::assetManager->GetTexture(textureId);
+Tile::Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, MapLayer mapLayer) {
+    this->texture = Game::assetManager->GetTexture(textureId);
 
-    sourceRect.x = sourceRectX;
-    sourceRect.y = sourceRectY;
-    sourceRect.w = tileWidth;
-    sourceRect.h = tileHeight;
+    this->sourceRect.x = sourceRectX;
+    this->sourceRect.y = sourceRectY;
+    this->sourceRect.w = tileWidth;
+    this->sourceRect.h = tileHeight;
 
-    destinationRect.x = x;
-    destinationRect.y = y;
-    destinationRect.w = tileWidth * tileScale;
-    destinationRect.h = tileHeight * tileScale;
+    this->destinationRect.x = x;
+    this->destinationRect.y = y;
+    this->destinationRect.w = tileWidth * tileScale;
+    this->destinationRect.h = tileHeight * tileScale;
 
-    position.x = x;
-    position.y = y;
-    isCollider = isColliderTile;
+    this->position.x = x;
+    this->position.y = y;
+    this->mapLayer = mapLayer;
 }
 
 Tile::~Tile() {

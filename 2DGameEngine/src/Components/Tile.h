@@ -11,14 +11,13 @@ public:
     SDL_Rect sourceRect;
     SDL_Rect destinationRect;
     glm::vec2 position;
-    bool isCollider;
+    MapLayer mapLayer;
     
-    Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, bool isColliderTile);
+    Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, MapLayer mapLayer);
     ~Tile();
     void Update(float deltaTime) override;
     void Render() override;
 private:
-
 };
 
 #endif /* TILE_H */

@@ -18,6 +18,7 @@ public:
     static SDL_Renderer* renderer;
     static AssetManager* assetManager;
     static InputState* inputState;
+    static SDL_Joystick* joystick;
     static SDL_Event event;
     static SDL_Rect camera;
 

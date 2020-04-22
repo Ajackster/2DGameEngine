@@ -17,7 +17,9 @@ enum LayerType {
 };
 
 enum MapLayer {
-    
+    BACKGROUND = 0,
+    GROUND = 1,
+    WALL = 2,
 };
 
 const unsigned int NUM_LAYERS = 6;

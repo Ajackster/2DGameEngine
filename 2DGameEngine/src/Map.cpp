@@ -14,31 +14,56 @@ Map::Map(std::string textureId, int scale, int tileWidth, int tileHeight) {
     this->tileHeight = tileHeight;
 }
 
-void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
+void Map::LoadMap(std::string filePath, std::string collisionFilePath, int mapSizeX, int mapSizeY) {
     // TODO: read the map tile definitions from the .map file
     std::fstream mapFile;
+    std::fstream mapCollisionFile;
     mapFile.open(filePath);
+    mapCollisionFile.open(collisionFilePath);
     
     for (int y = 0; y < mapSizeY; y++) {
         for (int x = 0; x < mapSizeX; x++) {
-            char ch;
-            mapFile.get(ch);
-            int sourceRectY = atoi(&ch) * tileHeight;
-            mapFile.get(ch);
-            int sourceRectX = atoi(&ch) * tileWidth;
+            char mapCh;
+            mapFile.get(mapCh);
+            int sourceRectY = atoi(&mapCh) * tileHeight;
+            mapFile.get(mapCh);
+            int sourceRectX = atoi(&mapCh) * tileWidth;
 
-            AddTile(sourceRectX, sourceRectY, x * scale * tileWidth, y * scale * tileHeight);
+            char mapCollisionCh;
+            mapCollisionFile.get(mapCollisionCh);
+            MapLayer collisionType = static_cast<MapLayer>(atoi(&mapCollisionCh));
+
+            AddTile(sourceRectX, sourceRectY, x, y, collisionType);
             mapFile.ignore();
+            mapCollisionFile.ignore();
         }
     }
 
     mapFile.close();
+    mapCollisionFile.close();
 }
 
-void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y) {
+void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLayer) {
     // TODO: Add a new tile entity in the game scene
     Entity& newTile(entityManager.AddEntity("Tile " + std::to_string(tileEntityIndex), LayerType::TILEMAP_LAYER));
-    newTile.AddComponent<Tile>(sourceRectX, sourceRectY, x, y, tileWidth, tileHeight, scale, textureId, false);
+    newTile.AddComponent<Tile>(
+        sourceRectX,
+        sourceRectY,
+        x * scale * tileWidth,
+        y * scale * tileHeight,
+        tileWidth,
+        tileHeight,
+        scale,
+        textureId,
+        mapLayer
+    );
+
+    tileIndexToTile.emplace(std::to_string(x) + "," + std::to_string(y), newTile.GetComponent<Tile>());
 
     tileEntityIndex++;
+}
+
+Tile& Map::GetTileAt(int xIndex, int yIndex) {
+    Tile& tileRef = *tileIndexToTile.at(std::to_string(xIndex) + "," + std::to_string(yIndex));
+    return tileRef;
 }
