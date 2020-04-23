@@ -13,6 +13,7 @@ EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
 InputState* Game::inputState = new InputState();
 SDL_Renderer* Game::renderer;
+SDL_Joystick* Game::joystick;
 SDL_Event Game::event;
 SDL_Rect Game::camera = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 Map* map;
@@ -35,6 +36,8 @@ void Game::Initialize(int width, int height) {
         std::cerr << "Error initializing SDL." << std::endl;
         return;
     }
+
+    joystick = SDL_JoystickOpen(0);
 
     window = SDL_CreateWindow(
             NULL,
@@ -66,9 +69,9 @@ void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
     assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
+    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
     
-    map = new Map("desert-tiletexture", 1, 32, 32);
+    map = new Map("desert-tiletexture", 1, 64, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", "./assets/tilemaps/jungle-collision.map", 25, 20);
     
     // Start including entities

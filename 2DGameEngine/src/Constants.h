@@ -24,4 +24,6 @@ enum MapLayer {
 
 const unsigned int NUM_LAYERS = 6;
 
+const int JOYSTICK_DEADZONE = 8000;
+
 #endif

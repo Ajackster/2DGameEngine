@@ -49,8 +49,8 @@ void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLa
     newTile.AddComponent<Tile>(
         sourceRectX,
         sourceRectY,
-        x * scale * tileWidth,
-        y * scale * tileHeight,
+        x * scale * 32,
+        y * scale * 32,
         tileWidth,
         tileHeight,
         scale,

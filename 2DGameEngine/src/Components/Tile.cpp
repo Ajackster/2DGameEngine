@@ -25,8 +25,9 @@ Tile::~Tile() {
 }
 
 void Tile::Update(float deltaTime) {
-    destinationRect.x = position.x - Game::camera.x;
-    destinationRect.y = position.y - Game::camera.y;
+    glm::vec2 isometricCoord = utils::CartesianToIsometric(position, destinationRect);
+    destinationRect.x = isometricCoord.x - Game::camera.x;
+    destinationRect.y = isometricCoord.y - Game::camera.y;
 }
 
 void Tile::Render() {

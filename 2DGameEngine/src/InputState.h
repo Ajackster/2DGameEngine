@@ -7,6 +7,11 @@
 
 class InputState {
 public:
+    enum class Axis {
+        HORIZONTAL,
+        VERTICAL
+    };
+
     SDL_KeyCode upKeyCode;
     SDL_KeyCode downKeyCode;
     SDL_KeyCode rightKeyCode;
@@ -16,8 +21,11 @@ public:
     InputState();
     void UpdateInput();
     bool IsPressed(std::string inputId) const;
+    float GetAxis(Axis axis) const;
 
 private:
+    float horizontalAxis;
+    float verticalAxis;
     SDL_KeyCode GetSDLKeyCodeForInputId(std::string inputId) const;
     std::map<std::string, bool> inputIdToIsPressed = {
         { "Up", false },
