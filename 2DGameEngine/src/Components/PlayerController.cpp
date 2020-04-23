@@ -1,11 +1,11 @@
-#include "KeyboardControl.h"
+#include "PlayerController.h"
 
-void KeyboardControl::Initialize() {
+void PlayerController::Initialize() {
     transform = entity->GetComponent<Transform>();
     sprite = entity->GetComponent<Sprite>();
 }
 
-void KeyboardControl::Update(float deltaTime) {
+void PlayerController::Update(float deltaTime) {
     glm::vec2 newPosition = transform->GetPosition();
     glm::vec2 directionVector = glm::vec2(
         Game::inputState->GetAxis(InputState::Axis::HORIZONTAL),

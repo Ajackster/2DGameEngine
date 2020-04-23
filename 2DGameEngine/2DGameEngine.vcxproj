@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\AssetManager.cpp" />
-    <ClCompile Include="src\Components\KeyboardControl.cpp" />
+    <ClCompile Include="src\Components\PlayerController.cpp" />
     <ClCompile Include="src\Components\Sprite.cpp" />
     <ClCompile Include="src\Components\Tile.cpp" />
     <ClCompile Include="src\Components\Transform.cpp" />
@@ -39,7 +39,7 @@
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\AssetManager.h" />
     <ClInclude Include="src\Component.h" />
-    <ClInclude Include="src\Components\KeyboardControl.h" />
+    <ClInclude Include="src\Components\PlayerController.h" />
     <ClInclude Include="src\Components\Sprite.h" />
     <ClInclude Include="src\Components\Tile.h" />
     <ClInclude Include="src\Components\Transform.h" />

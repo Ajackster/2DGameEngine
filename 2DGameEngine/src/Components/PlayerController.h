@@ -1,12 +1,12 @@
-#ifndef KEYBOARDCONTROL_H
-#define KEYBOARDCONTROL_H
+#ifndef PLAYERCONTROLLER_H
+#define PLAYERCONTROLLER_H
 
 #include "../Game.h"
 #include "../EntityManager.h"
 #include "./Transform.h"
 #include "./Sprite.h"
 
-class KeyboardControl: public Component {
+class PlayerController: public Component {
     public:
         Transform* transform;
         Sprite* sprite;
@@ -15,5 +15,5 @@ class KeyboardControl: public Component {
         void Update(float deltaTime);
 };
 
-#endif /* KEYBOARDCONTROL_H */
+#endif /* PLAYERCONTROLLER_H */
 

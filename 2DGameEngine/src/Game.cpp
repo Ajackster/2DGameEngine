@@ -7,7 +7,7 @@
 
 #include "./Components/Transform.h"
 #include "./Components/Sprite.h"
-#include "./Components/KeyboardControl.h";
+#include "./Components/PlayerController.h";
 
 EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
@@ -77,7 +77,7 @@ void Game::LoadLevel(int levelNumber) {
     // Start including entities
     playerEntity.AddComponent<Transform>(240, 160, 32, 32, 1);
     playerEntity.AddComponent<Sprite>("chopper-image", 2, 90, true, false);
-    playerEntity.AddComponent<KeyboardControl>();
+    playerEntity.AddComponent<PlayerController>();
 }
 
 void Game::ProcessInput() {
