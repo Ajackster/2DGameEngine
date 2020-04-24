@@ -8,7 +8,7 @@ namespace utils {
         );
     }
 
-    glm::vec2 CartesianToIsometric(glm::vec2 cartesianPoint, SDL_Rect destinationRect) {
+    glm::vec2 CartesianToIsometric(glm::vec2 cartesianPoint) {
         return glm::vec2(
             (cartesianPoint.x - cartesianPoint.y),
             (cartesianPoint.x + cartesianPoint.y) / 2

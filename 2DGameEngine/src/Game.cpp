@@ -8,6 +8,7 @@
 #include "./Components/Transform.h"
 #include "./Components/Sprite.h"
 #include "./Components/PlayerController.h";
+#include "./Components/Avatar.h"
 
 EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
@@ -67,16 +68,17 @@ void Game::Initialize(int width, int height) {
 
 void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
-    assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
+    assetManager->AddTexture("player-sheet", std::string("./assets/images/player.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
     assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
     
-    map = new Map("desert-tiletexture", 1, 64, 32);
+    map = new Map("desert-tiletexture", 2, 64, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", "./assets/tilemaps/jungle-collision.map", 25, 20);
     
     // Start including entities
-    playerEntity.AddComponent<Transform>(240, 160, 32, 32, 1);
-    playerEntity.AddComponent<Sprite>("chopper-image", 2, 90, true, false);
+    playerEntity.AddComponent<Transform>(240, 160, 128, 128, 1);
+    playerEntity.AddComponent<Sprite>("player-sheet", true, false);
+    playerEntity.AddComponent<Avatar>();
     playerEntity.AddComponent<PlayerController>();
 }
 
@@ -143,9 +145,10 @@ void Game::Render() {
 
 void Game::HandleCameraMovement() {
     Transform* playerTransform = playerEntity.GetComponent<Transform>();
+    glm::vec2 isometricCoord = utils::CartesianToIsometric(playerTransform->GetPosition());
 
-    camera.x = playerTransform->GetPosition().x - (camera.w / 2);
-    camera.y = playerTransform->GetPosition().y - (camera.h / 2);
+    camera.x = isometricCoord.x - (camera.w / 2);
+    camera.y = isometricCoord.y - (camera.h / 2);
 }
 
 void Game::Destroy() {

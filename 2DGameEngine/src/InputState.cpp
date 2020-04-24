@@ -13,29 +13,32 @@ InputState::InputState() {
 
 void InputState::UpdateInput() {
     // Handle joystick controls
+    float newHorizontalAxis = 0;
+    float newVerticalAxis = 0;
+
     if (Game::event.type == SDL_JOYAXISMOTION) {
         // Ensure the event is coming from one joystick
         int sdlHorizontalAxis = SDL_JoystickGetAxis(Game::joystick, 0);
         int sdlVerticalAxis = SDL_JoystickGetAxis(Game::joystick, 1);
-        
+
         if (sdlHorizontalAxis < JOYSTICK_DEADZONE * -1) {
-            this->horizontalAxis = sdlHorizontalAxis / 32768.0f;
+            newHorizontalAxis = sdlHorizontalAxis / 32768.0f;
         }
         else if (sdlHorizontalAxis > JOYSTICK_DEADZONE) {
-            this->horizontalAxis = sdlHorizontalAxis / 32767.0f;
+            newHorizontalAxis = sdlHorizontalAxis / 32767.0f;
         }
         else {
-            this->horizontalAxis = 0;
+            newHorizontalAxis = 0;
         }
 
         if (sdlVerticalAxis < JOYSTICK_DEADZONE * -1) {
-            this->verticalAxis = sdlVerticalAxis / 32768.0f;
+            newVerticalAxis = sdlVerticalAxis / 32768.0f;
         }
         else if (sdlVerticalAxis > JOYSTICK_DEADZONE) {
-            this->verticalAxis = sdlVerticalAxis / 32767.0f;
+            newVerticalAxis = sdlVerticalAxis / 32767.0f;
         }
         else {
-            this->verticalAxis = 0;
+            newVerticalAxis = 0;
         }
     }
 
@@ -44,22 +47,18 @@ void InputState::UpdateInput() {
 
         if (keyCode == upKeyCode) {
             inputIdToIsPressed["Up"] = true;
-            this->verticalAxis = -1;
         }
 
         if (keyCode == rightKeyCode) {
             inputIdToIsPressed["Right"] = true;
-            this->horizontalAxis = 1;
         }
 
         if (keyCode == downKeyCode) {
             inputIdToIsPressed["Down"] = true;
-            this->verticalAxis = 1;
         }
 
         if (keyCode == leftKeyCode) {
             inputIdToIsPressed["Left"] = true;
-            this->horizontalAxis = -1;
         }
 
         if (keyCode == fireKeyCode) {
@@ -71,28 +70,44 @@ void InputState::UpdateInput() {
         SDL_Keycode keyCode = Game::event.key.keysym.sym;
         if (keyCode == upKeyCode) {
             inputIdToIsPressed["Up"] = false;
-            this->verticalAxis = 0;
         }
 
         if (keyCode == rightKeyCode) {
             inputIdToIsPressed["Right"] = false;
-            this->horizontalAxis = 0;
         }
 
         if (keyCode == downKeyCode) {
             inputIdToIsPressed["Down"] = false;
-            this->verticalAxis = 0;
         }
 
         if (keyCode == leftKeyCode) {
             inputIdToIsPressed["Left"] = false;
-            this->horizontalAxis = 0;
         }
 
         if (keyCode == fireKeyCode) {
             inputIdToIsPressed["Fire"] = false;
         }
     }
+
+    // TODO: Make sure left->right overrides input like left<-right does. Same goes for up & down.
+    if (IsPressed("Up")) {
+        newVerticalAxis = -1;
+    }
+
+    if (IsPressed("Right")) {
+        newHorizontalAxis = 1;
+    }
+
+    if (IsPressed("Down")) {
+        newVerticalAxis = 1;
+    }
+
+    if (IsPressed("Left")) {
+        newHorizontalAxis = -1;
+    }
+
+    this->horizontalAxis = newHorizontalAxis;
+    this->verticalAxis = newVerticalAxis;
 }
 
 float InputState::GetAxis(Axis axis) const {

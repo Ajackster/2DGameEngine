@@ -1,42 +1,34 @@
+#include <iostream>
 #include "Sprite.h"
 #include "../Utils.h"
 
-SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 Sprite::Sprite(std::string id) {
     isAnimated = false;
     isFixed = false;
     SetTexture(id);
 }
 
-Sprite::Sprite(std::string id, int numFrames, int animationDurationMS, bool hasDirections, bool isFixed) {
-    isAnimated = true;
+Sprite::Sprite(std::string id, bool isAnimated, bool isFixed) {
+    this->isAnimated = isAnimated;
     this->numFrames = numFrames;
     this->animationDurationMS = animationDurationMS;
     this->isFixed = isFixed;
 
-    if (hasDirections) {
-        Animation downAnimation = Animation(0, numFrames, animationDurationMS);
-        Animation rightAnimation = Animation(1, numFrames, animationDurationMS);
-        Animation leftAnimation = Animation(2, numFrames, animationDurationMS);
-        Animation upAnimation = Animation(3, numFrames, animationDurationMS);
-
-        animations.emplace("DownAnimation", downAnimation);
-        animations.emplace("RightAnimation", rightAnimation);
-        animations.emplace("LeftAnimation", leftAnimation);
-        animations.emplace("UpAnimation", upAnimation);
-
-        this->animationIndex = 0;
-        this->currentAnimationName = "DownAnimation";
-    }
-    else {
-        Animation singleAnimation = Animation(0, numFrames, animationDurationMS);
-        animations.emplace("SingleAnimation", singleAnimation);
-        this->animationIndex = 0;
-        this->currentAnimationName = "SingleAnimation";
-    }
-
-    Play(this->currentAnimationName);
     SetTexture(id);
+}
+
+Sprite::~Sprite() {
+    animations.erase(animations.begin(), animations.end());
+}
+
+void Sprite::AddAnimation(std::string name, unsigned int sheetRow, unsigned int sheetColStart, unsigned int numFrames, unsigned int animationDurationMS) {
+    if (animations.count(name) == 1) {
+        std::cerr << "Tried to add an animation that was already added to sprite" << std::endl;
+        return;
+    }
+
+    Animation newAnimation = Animation(sheetRow, sheetColStart, numFrames, animationDurationMS);
+    animations.emplace(name, newAnimation);
 }
 
 bool Sprite::IsPlayingAnimation(std::string animationName) const {
@@ -44,8 +36,18 @@ bool Sprite::IsPlayingAnimation(std::string animationName) const {
 }
 
 void Sprite::Play(std::string animationName) {
+    if (IsPlayingAnimation(animationName)) {
+        return;
+    }
+
+    if (animations.count(animationName) == 0) {
+        std::cerr << "Tried to play an animation that does not exist for the sprite" << std::endl;
+        return;
+    }
+
     numFrames = animations[animationName].numFrames;
-    animationIndex = animations[animationName].index;
+    animationRow = animations[animationName].row;
+    animationColStart = animations[animationName].colStart;
     animationDurationMS = animations[animationName].animationDurationMS;
     currentAnimationName = animationName;
 }
@@ -63,24 +65,25 @@ void Sprite::Initialize() {
 }
 
 void Sprite::Update(float deltaTime) {
-    if (isAnimated) {
-        sourceRectangle.x = sourceRectangle.w * static_cast<int>((SDL_GetTicks() / animationDurationMS) % numFrames);
-        sourceRectangle.y = animationIndex * transform->height;
+    if (isAnimated && animationDurationMS != 0) {
+        sourceRectangle.x =  sourceRectangle.w * (animationColStart + static_cast<int>((SDL_GetTicks() / animationDurationMS) % numFrames));
+        sourceRectangle.y = animationRow * transform->height;
     }
 
     destinationRectangle.w = transform->width * transform->scale;
     destinationRectangle.h = transform->height * transform->scale;
 
+    glm::vec2 isometricCoord = utils::CartesianToIsometric(transform->GetPosition());
     if (isFixed) {
-        destinationRectangle.x = static_cast<int>(transform->GetPosition().x);
-        destinationRectangle.y = static_cast<int>(transform->GetPosition().y);
+        destinationRectangle.x = static_cast<int>(isometricCoord.x);
+        destinationRectangle.y = static_cast<int>(isometricCoord.y);
     }
     else {
-        destinationRectangle.x = static_cast<int>(transform->GetPosition().x) - Game::camera.x;
-        destinationRectangle.y = static_cast<int>(transform->GetPosition().y) - Game::camera.y;
+        destinationRectangle.x = static_cast<int>(isometricCoord.x) - Game::camera.x;
+        destinationRectangle.y = static_cast<int>(isometricCoord.y) - Game::camera.y;
     }
 }
 
 void Sprite::Render() {
-    TextureManager::Draw(texture, sourceRectangle, destinationRectangle, spriteFlip);
+    TextureManager::Draw(texture, sourceRectangle, destinationRectangle, SDL_FLIP_NONE);
 }

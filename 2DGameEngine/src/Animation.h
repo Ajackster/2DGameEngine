@@ -3,11 +3,12 @@
 
 class Animation {
 public:
-    unsigned int index;
+    unsigned int row;
+    unsigned int colStart;
     unsigned int numFrames;
     unsigned int animationDurationMS;
     Animation();
-    Animation(unsigned int index, unsigned int numFrames, unsigned int animationSpeed);
+    Animation(unsigned int sheetRow, unsigned int sheetColStart, unsigned int numFrames, unsigned int animationSpeed);
 private:
 
 };

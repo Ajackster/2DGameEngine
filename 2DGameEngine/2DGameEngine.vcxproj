@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\AssetManager.cpp" />
+    <ClCompile Include="src\Components\Avatar.cpp" />
     <ClCompile Include="src\Components\PlayerController.cpp" />
     <ClCompile Include="src\Components\Sprite.cpp" />
     <ClCompile Include="src\Components\Tile.cpp" />
@@ -38,6 +39,7 @@
   <ItemGroup>
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\AssetManager.h" />
+    <ClInclude Include="src\Components\Avatar.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Components\PlayerController.h" />
     <ClInclude Include="src\Components\Sprite.h" />

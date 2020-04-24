@@ -26,4 +26,15 @@ const unsigned int NUM_LAYERS = 6;
 
 const int JOYSTICK_DEADZONE = 8000;
 
+enum class Direction {
+    NORTH,
+    NORTH_EAST,
+    EAST,
+    SOUTH_EAST,
+    SOUTH,
+    SOUTH_WEST,
+    WEST,
+    NORTH_WEST
+};
+
 #endif

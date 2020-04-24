@@ -4,8 +4,9 @@ Animation::Animation() {
     
 }
 
-Animation::Animation(unsigned int index, unsigned int numFrames, unsigned int animationDurationMS) {
-    this->index = index;
+Animation::Animation(unsigned int sheetRow, unsigned int sheetColStart, unsigned int numFrames, unsigned int animationSpeed) {
+    this->row = sheetRow;
+    this->colStart = sheetColStart;
     this->numFrames = numFrames;
-    this->animationDurationMS = animationDurationMS;
+    this->animationDurationMS = animationSpeed;
 }

@@ -11,7 +11,9 @@ class Sprite: public Component {
     public:
         SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
         Sprite(std::string id);
-        Sprite(std::string id, int numFrames, int animationDurationMS, bool hasDirections, bool isFixed);
+        Sprite(std::string id, bool isAnimated, bool isFixed);
+        ~Sprite();
+        void AddAnimation(std::string name, unsigned int sheetRow, unsigned int sheetColStart, unsigned int numFrames, unsigned int animationDurationMS);
         bool IsPlayingAnimation(std::string animationName) const;
         void Play(std::string animationName);
         void SetTexture(std::string textureId);
@@ -30,7 +32,8 @@ class Sprite: public Component {
         bool isFixed;
         std::map<std::string, Animation> animations;
         std::string currentAnimationName;
-        unsigned int animationIndex = 0;
+        unsigned int animationRow = 0;
+        unsigned int animationColStart = 0;
 };
 
 #endif /* SPRITE_H */
