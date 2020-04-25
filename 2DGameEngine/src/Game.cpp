@@ -147,8 +147,8 @@ void Game::HandleCameraMovement() {
     Transform* playerTransform = playerEntity.GetComponent<Transform>();
     glm::vec2 isometricCoord = utils::CartesianToIsometric(playerTransform->GetPosition());
 
-    camera.x = isometricCoord.x - (camera.w / 2);
-    camera.y = isometricCoord.y - (camera.h / 2);
+    camera.x = isometricCoord.x - (camera.w / 2.5);
+    camera.y = isometricCoord.y - (camera.h / 2.5);
 }
 
 void Game::Destroy() {

@@ -73,14 +73,14 @@ void Sprite::Update(float deltaTime) {
     destinationRectangle.w = transform->width * transform->scale;
     destinationRectangle.h = transform->height * transform->scale;
 
-    glm::vec2 isometricCoord = utils::CartesianToIsometric(transform->GetPosition());
+    glm::vec2 isometricPosition = transform->GetIsometricPosition();
     if (isFixed) {
-        destinationRectangle.x = static_cast<int>(isometricCoord.x);
-        destinationRectangle.y = static_cast<int>(isometricCoord.y);
+        destinationRectangle.x = static_cast<int>(isometricPosition.x);
+        destinationRectangle.y = static_cast<int>(isometricPosition.y);
     }
     else {
-        destinationRectangle.x = static_cast<int>(isometricCoord.x) - Game::camera.x;
-        destinationRectangle.y = static_cast<int>(isometricCoord.y) - Game::camera.y;
+        destinationRectangle.x = static_cast<int>(isometricPosition.x) - Game::camera.x;
+        destinationRectangle.y = static_cast<int>(isometricPosition.y) - Game::camera.y;
     }
 }
 

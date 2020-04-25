@@ -9,6 +9,7 @@
 class Transform : public Component {
 public:
     glm::vec2 GetPosition() const { return position; };
+    glm::vec2 GetIsometricPosition() const { return isometricPosition; };
     void UpdatePosition(glm::vec2 newPosition);
     int width;
     int height;

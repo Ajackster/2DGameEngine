@@ -11,6 +11,7 @@ Transform::Transform(int posX, int posY, int width, int height, int scale) {
 void Transform::UpdatePosition(glm::vec2 newPosition) {
     // TODO: Check for collisions
     position = newPosition;
+    isometricPosition = utils::CartesianToIsometric(newPosition);
 }
 
 void Transform::Initialize() {
