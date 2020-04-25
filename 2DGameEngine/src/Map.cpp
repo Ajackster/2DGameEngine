@@ -79,5 +79,5 @@ Tile& Map::GetTileAtPosition(int xPos, int yPos) {
     int xIndex = glm::floor(xPos / tileWidth);
     int yIndex = glm::floor(yPos / tileHeight);
 
-    GetTileAt(xIndex, yIndex);
+    return GetTileAt(xIndex, yIndex);
 }
