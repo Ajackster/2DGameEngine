@@ -37,7 +37,7 @@ void Map::LoadMap(int mapSizeX, int mapSizeY) {
             else if (n >= 0.35 && n < 0.8) {
                 // Ground
                 int sourceRectY = 0 * tileHeight;
-                int sourceRectX = 3 * tileWidth;
+                int sourceRectX = 1 * tileWidth;
                 AddTile(groundTextureId, sourceRectX, sourceRectY, x, y, MapLayer::GROUND);
             }
             else {
@@ -56,7 +56,7 @@ void Map::AddTile(std::string textureId, int sourceRectX, int sourceRectY, int x
     newTile.AddComponent<Tile>(
         sourceRectX,
         sourceRectY,
-        x * scale * tileHeight,
+        x * scale * (tileWidth / 2),
         y * scale * tileHeight,
         tileWidth,
         tileHeight,
@@ -76,8 +76,8 @@ Tile& Map::GetTileAt(int xIndex, int yIndex) {
 }
 
 Tile& Map::GetTileAtPosition(int xPos, int yPos) {
-    int xIndex = glm::floor(xPos / tileWidth);
-    int yIndex = glm::floor(yPos / tileHeight);
+    int xIndex = glm::round((xPos + (tileWidth / 2 / 2)) / (tileWidth / 2) / scale);
+    int yIndex = glm::round((yPos + tileHeight) / tileHeight / scale);
 
     return GetTileAt(xIndex, yIndex);
 }

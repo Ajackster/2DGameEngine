@@ -25,6 +25,7 @@
     <ClCompile Include="src\Components\PlayerController.cpp" />
     <ClCompile Include="src\Components\Sprite.cpp" />
     <ClCompile Include="src\Components\Tile.cpp" />
+    <ClCompile Include="src\Components\TileCollider.cpp" />
     <ClCompile Include="src\Components\Transform.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="src\Components\PlayerController.h" />
     <ClInclude Include="src\Components\Sprite.h" />
     <ClInclude Include="src\Components\Tile.h" />
+    <ClInclude Include="src\Components\TileCollider.h" />
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Entity.h" />

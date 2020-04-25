@@ -5,6 +5,7 @@
 #include "../EntityManager.h"
 #include "../Game.h"
 #include "../../lib/glm/glm.hpp"
+#include "TileCollider.h"
 
 class Transform : public Component {
 public:
@@ -22,6 +23,9 @@ public:
 private:
     glm::vec2 position;
     glm::vec2 isometricPosition;
+
+    // Optional
+    TileCollider* tileCollider;
 };
 
 #endif

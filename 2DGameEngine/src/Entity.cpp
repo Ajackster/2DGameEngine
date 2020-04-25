@@ -9,6 +9,12 @@ Entity::Entity(EntityManager& manager, std::string id, LayerType layer) : manage
     this->isActive = true;
 }
 
+void Entity::Initialize() {
+    for (auto& component : components) {
+        component->Initialize();
+    }
+}
+
 void Entity::Update(float deltaTime) {
     for (auto& component : components) {
         component->Update(deltaTime);

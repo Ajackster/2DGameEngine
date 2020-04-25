@@ -9,6 +9,7 @@
 #include "./Components/Sprite.h"
 #include "./Components/PlayerController.h";
 #include "./Components/Avatar.h"
+#include "./Components/TileCollider.h"
 
 EntityManager entityManager;
 AssetManager* Game::assetManager = new AssetManager(&entityManager);
@@ -62,6 +63,10 @@ void Game::Initialize(int width, int height) {
 
     LoadLevel(0);
 
+    for (auto entity : entityManager.GetEntities()) {
+        entity->Initialize();
+    }
+
     isRunning = true;
     return;
 }
@@ -70,10 +75,10 @@ void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
     assetManager->AddTexture("player-sheet", std::string("./assets/images/player.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->AddTexture("mars-tilemap", std::string("./assets/tilemaps/mars.png").c_str());
+    assetManager->AddTexture("snow-tilemap", std::string("./assets/tilemaps/snow.png").c_str());
     assetManager->AddTexture("water-tilemap", std::string("./assets/tilemaps/water.png").c_str());
     
-    map = new Map("water-tilemap", "mars-tilemap", 1, 256, 128);
+    map = new Map("water-tilemap", "snow-tilemap", 1, 256, 128);
     map->LoadMap(50, 50);
     
     // Start including entities
@@ -81,6 +86,7 @@ void Game::LoadLevel(int levelNumber) {
     playerEntity.AddComponent<Sprite>("player-sheet", true, false);
     playerEntity.AddComponent<Avatar>();
     playerEntity.AddComponent<PlayerController>();
+    playerEntity.AddComponent<TileCollider>();
 }
 
 void Game::ProcessInput() {

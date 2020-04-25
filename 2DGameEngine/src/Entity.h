@@ -18,6 +18,7 @@ public:
     LayerType layer;
     Entity(EntityManager& manager);
     Entity(EntityManager& manager, std::string id, LayerType layer);
+    void Initialize();
     void Update(float deltaTime);
     void Render();
     void Destroy();
@@ -30,7 +31,6 @@ public:
         newComponent->entity = this;
         components.emplace_back(newComponent);
         componentTypeMap[&typeid(*newComponent)] = newComponent;
-        newComponent->Initialize();
         return *newComponent;
     }
     

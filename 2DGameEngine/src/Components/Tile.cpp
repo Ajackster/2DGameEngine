@@ -24,6 +24,14 @@ Tile::~Tile() {
     SDL_DestroyTexture(texture);
 }
 
+bool Tile::IsWalkable() const {
+    if (mapLayer == MapLayer::GROUND) {
+        return true;
+    }
+
+    return false;
+}
+
 void Tile::Update(float deltaTime) {
     glm::vec2 isometricCoord = utils::CartesianToIsometric(position);
     destinationRect.x = isometricCoord.x - Game::camera.x;

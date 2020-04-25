@@ -15,6 +15,7 @@ public:
     
     Tile(int sourceRectX, int sourceRectY, int x, int y, int tileWidth, int tileHeight, int tileScale, std::string textureId, MapLayer mapLayer);
     ~Tile();
+    bool IsWalkable() const;
     void Update(float deltaTime) override;
     void Render() override;
 private:
