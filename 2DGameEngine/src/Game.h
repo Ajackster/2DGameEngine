@@ -8,6 +8,7 @@
 #include "./EntityManager.h"
 #include "./AssetManager.h"
 #include "./InputState.h"
+#include "./Map.h"
 
 class AssetManager;
 
@@ -18,6 +19,7 @@ public:
     static SDL_Renderer* renderer;
     static AssetManager* assetManager;
     static InputState* inputState;
+    static Map* map;
     static SDL_Joystick* joystick;
     static SDL_Event event;
     static SDL_Rect camera;

@@ -17,7 +17,7 @@ SDL_Renderer* Game::renderer;
 SDL_Joystick* Game::joystick;
 SDL_Event Game::event;
 SDL_Rect Game::camera = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
-Map* map;
+Map* Game::map;
 
 Entity& playerEntity(entityManager.AddEntity("chopper", LayerType::PLAYER_LAYER));
 
@@ -70,10 +70,11 @@ void Game::LoadLevel(int levelNumber) {
     // Start including new assets to the AssetManager list
     assetManager->AddTexture("player-sheet", std::string("./assets/images/player.png").c_str());
     assetManager->AddTexture("tank-image", std::string("./assets/images/tank-big-right.png").c_str());
-    assetManager->AddTexture("desert-tiletexture", std::string("./assets/tilemaps/desert.png").c_str());
+    assetManager->AddTexture("mars-tilemap", std::string("./assets/tilemaps/mars.png").c_str());
+    assetManager->AddTexture("water-tilemap", std::string("./assets/tilemaps/water.png").c_str());
     
-    map = new Map("desert-tiletexture", 2, 64, 32);
-    map->LoadMap("./assets/tilemaps/jungle.map", "./assets/tilemaps/jungle-collision.map", 25, 20);
+    map = new Map("water-tilemap", "mars-tilemap", 1, 256, 128);
+    map->LoadMap(50, 50);
     
     // Start including entities
     playerEntity.AddComponent<Transform>(240, 160, 128, 128, 1);

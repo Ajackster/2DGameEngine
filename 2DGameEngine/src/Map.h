@@ -7,15 +7,17 @@
 
 class Map {
 public:
-    Map(std::string textureId, int scale, int tileWidth, int tileHeight);
+    Map(std::string waterTextureId, std::string groundTextureId, int scale, int tileWidth, int tileHeight);
     ~Map();
-    void LoadMap(std::string filePath, std::string collisionFilePath, int mapSizeX, int mapSizeY);
-    void AddTile(int sourceX, int sourceY, int x, int y, MapLayer mapLayer);
+    void LoadMap(int mapSizeX, int mapSizeY);
+    void AddTile(std::string textureId, int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLayer);
     Tile& GetTileAt(int xIndex, int yIndex);
+    Tile& GetTileAtPosition(int xPos, int yPos);
 
 private:
     std::map<std::string, Tile*> tileIndexToTile;
-    std::string textureId;
+    std::string waterTextureId;
+    std::string groundTextureId;
     int scale;
     int tileWidth;
     int tileHeight;

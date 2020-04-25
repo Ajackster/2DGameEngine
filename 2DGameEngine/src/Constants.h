@@ -17,8 +17,8 @@ enum LayerType {
 };
 
 enum MapLayer {
-    BACKGROUND = 0,
-    GROUND = 1,
+    GROUND = 0,
+    WATER = 1,
     WALL = 2,
 };
 

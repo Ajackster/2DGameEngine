@@ -33,6 +33,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\MapLayer.cpp" />
+    <ClCompile Include="src\PerlinNoise.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
@@ -52,6 +53,7 @@
     <ClInclude Include="src\InputState.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapLayer.h" />
+    <ClInclude Include="src\PerlinNoise.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>

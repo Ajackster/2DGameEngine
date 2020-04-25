@@ -3,54 +3,61 @@
 #include "./Map.h"
 #include "./EntityManager.h"
 #include "./Utils.h"
+#include "./PerlinNoise.h"
 #include "./Components/Tile.h"
 
 extern EntityManager entityManager;
 
-Map::Map(std::string textureId, int scale, int tileWidth, int tileHeight) {
-    this->textureId = textureId;
+Map::Map(std::string waterTextureId, std::string groundTextureId, int scale, int tileWidth, int tileHeight) {
+    this->waterTextureId = waterTextureId;
+    this->groundTextureId = groundTextureId;
     this->scale = scale;
     this->tileWidth = tileWidth;
     this->tileHeight = tileHeight;
 }
 
-void Map::LoadMap(std::string filePath, std::string collisionFilePath, int mapSizeX, int mapSizeY) {
-    // TODO: read the map tile definitions from the .map file
-    std::fstream mapFile;
-    std::fstream mapCollisionFile;
-    mapFile.open(filePath);
-    mapCollisionFile.open(collisionFilePath);
+void Map::LoadMap(int mapSizeX, int mapSizeY) {
+    PerlinNoise perlinNoise = PerlinNoise(257);
+
+    float mapSizeYFloat = static_cast<float>(mapSizeY);
+    float mapSizeXFloat = static_cast<float>(mapSizeX);
     
     for (int y = 0; y < mapSizeY; y++) {
-        for (int x = 0; x < mapSizeX; x++) {
-            char mapCh;
-            mapFile.get(mapCh);
-            int sourceRectY = atoi(&mapCh) * tileHeight;
-            mapFile.get(mapCh);
-            int sourceRectX = atoi(&mapCh) * tileWidth;
+        for (int x = 0; x < mapSizeX; x++) { 
+            float i = static_cast<float>(x) / mapSizeXFloat;
+            float j = static_cast<float>(y) / mapSizeYFloat;
+            float n = perlinNoise.Noise(10 * i, 10 * j, 0.8);
 
-            char mapCollisionCh;
-            mapCollisionFile.get(mapCollisionCh);
-            MapLayer collisionType = static_cast<MapLayer>(atoi(&mapCollisionCh));
-
-            AddTile(sourceRectX, sourceRectY, x, y, collisionType);
-            mapFile.ignore();
-            mapCollisionFile.ignore();
+            if (n < 0.35) {
+                // Water
+                int sourceRectY = 0 * tileHeight;
+                int sourceRectX = 0 * tileWidth;
+                AddTile(waterTextureId, sourceRectX, sourceRectY, x, y, MapLayer::WATER);
+            }
+            else if (n >= 0.35 && n < 0.8) {
+                // Ground
+                int sourceRectY = 0 * tileHeight;
+                int sourceRectX = 3 * tileWidth;
+                AddTile(groundTextureId, sourceRectX, sourceRectY, x, y, MapLayer::GROUND);
+            }
+            else {
+                // Wall
+                int sourceRectY = 4 * tileHeight;
+                int sourceRectX = 1 * tileWidth;
+                AddTile(groundTextureId, sourceRectX, sourceRectY, x, y, MapLayer::WALL);
+            }
         }
     }
-
-    mapFile.close();
-    mapCollisionFile.close();
 }
 
-void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLayer) {
+void Map::AddTile(std::string textureId, int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLayer) {
     // TODO: Add a new tile entity in the game scene
     Entity& newTile(entityManager.AddEntity("Tile " + std::to_string(tileEntityIndex), LayerType::TILEMAP_LAYER));
     newTile.AddComponent<Tile>(
         sourceRectX,
         sourceRectY,
-        x * scale * 32,
-        y * scale * 32,
+        x * scale * tileHeight,
+        y * scale * tileHeight,
         tileWidth,
         tileHeight,
         scale,
@@ -66,4 +73,11 @@ void Map::AddTile(int sourceRectX, int sourceRectY, int x, int y, MapLayer mapLa
 Tile& Map::GetTileAt(int xIndex, int yIndex) {
     Tile& tileRef = *tileIndexToTile.at(std::to_string(xIndex) + "," + std::to_string(yIndex));
     return tileRef;
+}
+
+Tile& Map::GetTileAtPosition(int xPos, int yPos) {
+    int xIndex = glm::floor(xPos / tileWidth);
+    int yIndex = glm::floor(yPos / tileHeight);
+
+    GetTileAt(xIndex, yIndex);
 }
